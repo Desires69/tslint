@@ -2,7 +2,7 @@
 ruleName: ban
 description: Bans the use of specific functions.
 descriptionDetails: 'At this time, there is no way to disable global methods with this rule.'
-optionsDescription: 'A list of `[''object'', ''method'']` pairs which ban `object.method()`.'
+optionsDescription: 'A list of `[''object'', ''method'', ''optional explanation here'']` which ban `object.method()`.'
 options:
   type: list
   listType:
@@ -10,8 +10,9 @@ options:
     arrayMembers:
       - type: string
       - type: string
+      - type: string
 optionExamples:
-  - '[true, ["console", "log"], ["someObject", "someFunction"]]'
+  - '[true, ["someObject", "someFunction"], ["someObject", "otherFunction", "Optional explanation"]]'
 type: functionality
 optionsJSON: |-
   {
@@ -19,6 +20,9 @@ optionsJSON: |-
     "listType": {
       "type": "array",
       "arrayMembers": [
+        {
+          "type": "string"
+        },
         {
           "type": "string"
         },

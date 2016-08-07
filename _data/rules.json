@@ -23,10 +23,21 @@
     "type": "style"
   },
   {
+    "ruleName": "arrow-parens",
+    "description": "Requires parentheses around the parameters of arrow function definitions.",
+    "rationale": "Maintains stylistic consistency with other arrow function definitions.",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "type": "style"
+  },
+  {
     "ruleName": "ban",
     "description": "Bans the use of specific functions.",
     "descriptionDetails": "At this time, there is no way to disable global methods with this rule.",
-    "optionsDescription": "A list of `['object', 'method']` pairs which ban `object.method()`.",
+    "optionsDescription": "A list of `['object', 'method', 'optional explanation here']` which ban `object.method()`.",
     "options": {
       "type": "list",
       "listType": {
@@ -37,12 +48,15 @@
           },
           {
             "type": "string"
+          },
+          {
+            "type": "string"
           }
         ]
       }
     },
     "optionExamples": [
-      "[true, [\"console\", \"log\"], [\"someObject\", \"someFunction\"]]"
+      "[true, [\"someObject\", \"someFunction\"], [\"someObject\", \"otherFunction\", \"Optional explanation\"]]"
     ],
     "type": "functionality"
   },
@@ -198,6 +212,20 @@
     "optionExamples": [
       "[true, \"LF\"]",
       "[true, \"CRLF\"]"
+    ],
+    "type": "maintainability"
+  },
+  {
+    "ruleName": "max-file-line-count",
+    "description": "Requires files to remain under a certain number of lines",
+    "rationale": "\nLimiting the number of lines allowed in a file allows files to remain small, \nsingle purpose, and maintainable.",
+    "optionsDescription": "An integer indicating the maximum number of lines.",
+    "options": {
+      "type": "number",
+      "minimum": "1"
+    },
+    "optionExamples": [
+      "[true, 300]"
     ],
     "type": "maintainability"
   },
@@ -476,6 +504,18 @@
     "type": "functionality"
   },
   {
+    "ruleName": "no-for-in-array",
+    "description": "Disallows iterating over an array with a for-in loop.",
+    "descriptionDetails": "\nA for-in loop (`for (var k in o)`) iterates over the properties of an Object.\n\nWhile it is legal to use for-in loops with array types, it is not common.\nfor-in will iterate over the indices of the array as strings, omitting any \"holes\" in\nthe array.\n\nMore common is to use for-of, which iterates over the values of an array.\nIf you want to iterate over the indices, alternatives include:\n\narray.forEach((value, index) => { ... });\nfor (const [index, value] of array.entries()) { ... }\nfor (let i = 0; i < array.length; i++) { ... }\n",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "requiresTypeInfo": true,
+    "type": "functionality"
+  },
+  {
     "ruleName": "no-inferrable-types",
     "description": "Disallows explicit type declarations for variables or parameters initialized to a number, string, or boolean.",
     "rationale": "Explicit types where they can be easily infered by the compiler make code more verbose.",
@@ -653,10 +693,34 @@
     "type": "functionality"
   },
   {
+    "ruleName": "no-unsafe-finally",
+    "description": "\nDisallows control flow statements, such as `return`, `continue`,\n`break` and `throws` in finally blocks.",
+    "descriptionDetails": "",
+    "rationale": "\nWhen used inside `finally` blocks, control flow statements,\nsuch as `return`, `continue`, `break` and `throws`\noverride any other control flow statements in the same try/catch scope.\nThis is confusing and unexpected behavior.",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "type": "functionality"
+  },
+  {
     "ruleName": "no-unused-expression",
     "description": "Disallows unused expression statements.",
     "descriptionDetails": "\nUnused expressions are expression statements which are not assignments or function calls\n(and thus usually no-ops).",
-    "rationale": "\nDetects potential errors where an assignment or function call was intended. Also detects constructs such as\n`new SomeClass()`, where a constructor is used solely for its side effects, which is considered poor style.",
+    "rationale": "\nDetects potential errors where an assignment or function call was intended.",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "type": "functionality"
+  },
+  {
+    "ruleName": "no-unused-new",
+    "description": "Disallows unused 'new' expression statements.",
+    "descriptionDetails": "\nUnused 'new' expressions indicate that a constructor is being invoked solely for its side effects.",
+    "rationale": "\nDetects constructs such as `new SomeClass()`, where a constructor is used solely for its side effects, which is considered\npoor style.",
     "optionsDescription": "Not configurable.",
     "options": null,
     "optionExamples": [
@@ -733,6 +797,24 @@
     "type": "typescript"
   },
   {
+    "ruleName": "object-literal-key-quotes",
+    "description": "Enforces consistent object literal property quote style.",
+    "descriptionDetails": "\nObject literal property names can be defined in two ways: using literals or using strings.\nFor example, these two objects are equivalent:\n\nvar object1 = {\n    property: true\n};\n\nvar object2 = {\n    \"property\": true\n};\n\nIn many cases, it doesn’t matter if you choose to use an identifier instead of a string\nor vice-versa. Even so, you might decide to enforce a consistent style in your code.\n\nThis rules lets you enforce consistent quoting of property names. Either they should always\nbe quoted (default behavior) or quoted only as needed (\"as-needed\").",
+    "optionsDescription": "\nPossible settings are:\n\n* `\"always\"`: Property names should always be quoted. (This is the default.)\n* `\"as-needed\"`: Only property names which require quotes may be quoted (e.g. those with spaces in them).\n\nFor ES6, computed property names (`{[name]: value}`) and methods (`{foo() {}}`) never need\nto be quoted.",
+    "options": {
+      "type": "string",
+      "enum": [
+        "always",
+        "as-needed"
+      ]
+    },
+    "optionExamples": [
+      "[true, \"as-needed\"]",
+      "[true, \"always\"]"
+    ],
+    "type": "style"
+  },
+  {
     "ruleName": "object-literal-sort-keys",
     "description": "Requires keys in object literals to be sorted alphabetically",
     "rationale": "Useful in preventing merge conflicts",
@@ -789,6 +871,42 @@
     "type": "style"
   },
   {
+    "ruleName": "only-arrow-functions",
+    "description": "Disallows traditional (non-arrow) function expressions.",
+    "rationale": "Traditional functions don't bind lexical scope, which can lead to unexpected behavior when accessing 'this'.",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "type": "typescript"
+  },
+  {
+    "ruleName": "ordered-imports",
+    "description": "Requires that import statements be alphabetized.",
+    "descriptionDetails": "\nEnforce a consistent ordering for ES6 imports:\n- Named imports must be alphabetized (i.e. \"import {A, B, C} from \"foo\";\")\n    - The exact ordering can be controled by the named-imports-order option.\n    - \"longName as name\" imports are ordered by \"longName\".\n- Import sources must be alphabetized within groups, i.e.:\n        import * as foo from \"a\";\n        import * as bar from \"b\";\n- Groups of imports are delineated by blank lines. You can use these to group imports\n    however you like, e.g. by first- vs. third-party or thematically.",
+    "optionsDescription": "\nYou may set the `\"named-imports-order\"` option to control the ordering of named\nimports (the `{A, B, C}` in 'import {A, B, C} from \"foo\"`.)\n\nPossible values for `\"named-imports-order\"` are:\n\n* `\"case-insensitive'`: Correct order is `{A, b, C}`. (This is the default.)\n* `\"lowercase-first\"`: Correct order is `{b, A, C}`.\n* `\"lowercase-last\"`: Correct order is `{A, C, b}`.\n        ",
+    "options": {
+      "type": "object",
+      "properties": {
+        "named-imports-order": {
+          "type": "string",
+          "enum": [
+            "case-insensitive",
+            "lowercase-first",
+            "lowercase-last"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "optionExamples": [
+      "true",
+      "[true, {\"named-imports-order\": \"lowercase-first\"}]"
+    ],
+    "type": "style"
+  },
+  {
     "ruleName": "quotemark",
     "description": "Requires single or double quotes for string literals.",
     "optionsDescription": "\nFive arguments may be optionally provided:\n\n* `\"single\"` enforces single quotes.\n* `\"double\"` enforces double quotes.\n* `\"jsx-single\"` enforces single quotes for JSX attributes.\n* `\"jsx-double\"` enforces double quotes for JSX attributes.\n* `\"avoid-escape\"` allows you to use the \"other\" quotemark in cases where escaping would normally be required.\nFor example, `[true, \"double\", \"avoid-escape\"]` would not report a failure on the string literal `'Hello \"World\"'`.",
@@ -823,6 +941,17 @@
       "true"
     ],
     "type": "functionality"
+  },
+  {
+    "ruleName": "restrict-plus-operands",
+    "description": "When adding two variables, operands must both be of type number or of type string.",
+    "optionsDescription": "Not configurable.",
+    "options": null,
+    "optionExamples": [
+      "true"
+    ],
+    "type": "functionality",
+    "requiresTypeInfo": true
   },
   {
     "ruleName": "semicolon",
@@ -1084,7 +1213,7 @@
   {
     "ruleName": "variable-name",
     "description": "Checks variable names for various errors.",
-    "optionsDescription": "\nFive arguments may be optionally provided:\n\n* `\"check-format\"`: allows only camelCased or UPPER_CASED variable names\n  * `\"allow-leading-underscore\"` allows underscores at the beginning (only has an effect if \"check-format\" specified)\n  * `\"allow-trailing-underscore\"` allows underscores at the end. (only has an effect if \"check-format\" specified)\n  * `\"allow-pascal-case` allows PascalCase in addtion to camelCase.\n* `\"ban-keywords\"`: disallows the use of certain TypeScript keywords (`any`, `Number`, `number`, `String`,\n`string`, `Boolean`, `boolean`, `undefined`) as variable or parameter names.",
+    "optionsDescription": "\nFive arguments may be optionally provided:\n\n* `\"check-format\"`: allows only camelCased or UPPER_CASED variable names\n  * `\"allow-leading-underscore\"` allows underscores at the beginning (only has an effect if \"check-format\" specified)\n  * `\"allow-trailing-underscore\"` allows underscores at the end. (only has an effect if \"check-format\" specified)\n  * `\"allow-pascal-case\"` allows PascalCase in addtion to camelCase.\n* `\"ban-keywords\"`: disallows the use of certain TypeScript keywords (`any`, `Number`, `number`, `String`,\n`string`, `Boolean`, `boolean`, `undefined`) as variable or parameter names.",
     "options": {
       "type": "array",
       "items": {
