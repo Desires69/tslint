@@ -19,7 +19,7 @@ import * as ts from "typescript";
 
 import * as Lint from "../lint";
 
-export class Rule extends Lint.Rules.AbstractRule {
+export class Rule extends Lint.Rules.TypedRule {
     /* tslint:disable:object-literal-sort-keys */
     public static metadata: Lint.IRuleMetadata = {
         ruleName: "no-bitwise",
@@ -37,17 +37,18 @@ export class Rule extends Lint.Rules.AbstractRule {
         options: null,
         optionExamples: ["true"],
         type: "functionality",
+        requiresTypeInfo: true,
     };
     /* tslint:enable:object-literal-sort-keys */
 
     public static FAILURE_STRING = "Forbidden bitwise operation";
 
-    public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
-        return this.applyWithWalker(new NoBitwiseWalker(sourceFile, this.getOptions()));
+    public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
+        return this.applyWithWalker(new NoBitwiseWalker(sourceFile, this.getOptions(), program));
     }
 }
 
-class NoBitwiseWalker extends Lint.RuleWalker {
+class NoBitwiseWalker extends Lint.ProgramAwareRuleWalker {
     public visitBinaryExpression(node: ts.BinaryExpression) {
         switch (node.operatorToken.kind) {
             case ts.SyntaxKind.AmpersandToken:

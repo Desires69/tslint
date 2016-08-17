@@ -1,3 +1,12 @@
+enum Direction {
+    Up = 0b1,
+    Down = 0b10,
+    Left = 0b100,
+    Right = 0b1000
+}
+
+const vertical =  Direction.UP | Direction.Down;
+
 var z = (x || 3) && (y || 4);
 var yy = x | 3;
          ~~~~~  [Forbidden bitwise operation]
