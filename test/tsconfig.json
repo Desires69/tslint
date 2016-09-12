@@ -113,6 +113,7 @@
         "../src/rules/noRequireImportsRule.ts",
         "../src/rules/noShadowedVariableRule.ts",
         "../src/rules/noStringLiteralRule.ts",
+        "../src/rules/noSwitchCaseCommaOperatorRule.ts",
         "../src/rules/noSwitchCaseFallThroughRule.ts",
         "../src/rules/noTrailingWhitespaceRule.ts",
         "../src/rules/noUnreachableRule.ts",

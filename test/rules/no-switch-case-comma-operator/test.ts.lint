@@ -1,0 +1,16 @@
+switch (arr.length) {
+    case 0, -0:
+         ~~~~~  [0]
+        return 'zero or negative zero';
+    case 0 + 1, 1:
+         ~~~~~~~~  [0]
+        return 'one';
+    case 3, 4, 5:
+         ~~~~~~~  [0]
+    case 6:
+        return 'three-six';
+    default:
+        return 'more than six';
+}
+
+[0]: Do not use comma operator in case clauses. Create case clause for each option instead.
