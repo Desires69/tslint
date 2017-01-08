@@ -4,3 +4,5 @@ var single = 'single';
 var singleWithinDouble = "'singleWithinDouble'";
 var doubleWithinSingle = '"doubleWithinSingle"';
                          ~~~~~~~~~~~~~~~~~~~~~~  [' should be "]
+console.log('"');
+            ~~~   [' should be "]
